@@ -47,11 +47,21 @@ class Plasmid:
 
     def restriction_cuts(self, tryout):
         query = str(self.sequence)
-        try:
-            if type(tryout) == list:
-                for i in tryout:
-                    if i != enzimeDic.keys():
-                        raise   KeyError('No restriction site template found')
+        if type(tryout) == list:
+            for i in tryout:
+                if i != enzimeDic.keys():
+                    raise ValueError('No restriction site template found for {0}'.format(i))
+        elif type(tryout) == str:
+            if tryout != enzimeDic.keys():
+                raise ValueError('No restriction site template found')
+        else:
+            raise ValueError("Unable to understand what restriction site you ask for")
+        query.upper()
+
+
+
+
+
 
 
         # if enz not in cut.keys():
@@ -73,6 +83,6 @@ class Plasmid:
 # Test of working
 
 Plas = Plasmid('Test Plasmid', 'pTest', 'NA', 'Amp',
-               'ggggaattgtgagcggataacaattcccctctagaaataattttgtttaactttaagaaggagatataccatgggcagca')
+               'ggggaattgtgagcggataacaattcccctctagaattcataattttgtttaactcgagttaagaaggagatatacccgggatgggcagca')
 
 print(Plas)
