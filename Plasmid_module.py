@@ -5,15 +5,23 @@ This file includes the plasmid class and several functions to keep track of anno
 
 """
 # import os   ##For further testing
-
+import json
 from Bio.Seq import Seq
 from Bio.Alphabet import generic_dna
 
 # Dictionary of enzymatic restriction sites
 
-enzimeDic = {'EcoR1': 'GAATTC',
-             'Xhol': 'CTCGAG',
-             'SmaI': 'CCCGGG'}
+try:
+	enzimeDic=open("enzimelist.dic", 'r')
+except:
+	enzimeDic=open("enzimelist.dic", 'w')
+	enzimes = {'EcoR1': 'GAATTC',
+			   'Xhol': 'CTCGAG',
+			   'SmaI': 'CCCGGG'}
+	json.dump(enzimes,enzimeDic)
+	enzimeDic.close()
+	
+
 
 
 class Plasmid:
@@ -57,6 +65,7 @@ class Plasmid:
         else:
             raise ValueError("Unable to understand what restriction site you ask for")
         query.upper()
+        pass
 
 
 
